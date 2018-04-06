@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/rohanchandra/javascript-terminal.git"
+    "url": "https://github.com/rohanchandra/javascript-terminal.git"
   },
   "keywords": [
     "terminal",
@@ -23,9 +23,9 @@
   "author": "Rohan Chandra",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/rohanchandra/javascript-terminal/issues"
+    "url": "https://github.com/rohanchandra/javascript-terminal/issues"
   },
-  "homepage": "https://gitlab.com/rohanchandra/javascript-terminal",
+  "homepage": "https://github.com/rohanchandra/javascript-terminal",
   "nyc": {
     "exclude": [
       "test",
