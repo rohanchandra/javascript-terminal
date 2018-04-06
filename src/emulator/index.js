@@ -23,7 +23,7 @@ export default class Emulator {
       return partialStr;
     }
 
-    const strParts = new List(partialStr.trim().split(' '));
+    const strParts = new List(partialStr.split(' '));
     const autocompletedText = suggestions[0];
 
     return strParts

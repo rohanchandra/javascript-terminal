@@ -209,6 +209,18 @@ describe('emulator', () => {
         chai.expect(suggestions).to.equal('commandOne spam --example');
       });
 
+      it('should autocomplete single file', () => {
+        const singleFileTestState = EmulatorState.create({
+          fs: createFileSystem({
+            '/foo': {}
+          })
+        });
+
+        const suggestions = emulator.autocomplete(singleFileTestState, 'cd ');
+
+        chai.expect(suggestions).to.equal('cd foo');
+      });
+
       it('should autocomplete file system at end of string', () => {
         const suggestions = emulator.autocomplete(testState, 'commandTwo spam /spam/e');
 
