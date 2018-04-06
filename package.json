@@ -1,6 +1,6 @@
 {
   "name": "javascript-terminal",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Emulate a terminal environment in JavaScript",
   "main": "lib/terminal.js",
   "unpkg": "lib/terminal.min.js",
