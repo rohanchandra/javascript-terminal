@@ -1,9 +1,9 @@
 {
   "name": "javascript-terminal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Emulate a terminal environment in JavaScript",
-  "main": "lib/javascript-terminal.js",
-  "unpkg": "lib/javascript-terminal.min.js",
+  "main": "lib/terminal.js",
+  "unpkg": "lib/terminal.min.js",
   "scripts": {
     "build": "webpack --mode development && webpack --mode production",
     "test": "cross-env NODE_PATH=./src mocha --require babel-core/register --colors './test/**/*.spec.js' './demo-**/**/*.spec.js'",
