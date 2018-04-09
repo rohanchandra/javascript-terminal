@@ -35,6 +35,26 @@ const emulatorState = Terminal.EmulatorState.createEmpty();
 
 In all examples below, it is assumed that `emulator` and `emulatorState` have been created.
 
+### Running commands
+Once you've created the `emulator` and `emulatorState`, you can run commands! `emulator.execute` is used to run a command string from the user, and it returns the **new** emulator state.
+
+```javascript
+const commandStr = 'ls';
+const plugins = [];
+
+const newEmulatorState = emulator.execute(emulatorState, commandStr, plugins)
+```
+
+In the example above, `newEmulatorState` now contains the updated emulator state after the side-effects of running the `ls` command string.
+
+You can then see the updated outputs using:
+
+```javascript
+newEmulatorState.getOutputs()
+```
+
+Putting everything together, you now have enough knowledge to build a simple terminal emulator in Node.js! Check out the [demo code](https://github.com/rohanchandra/javascript-terminal/tree/master/demo-cli), or keep reading for more advanced features.
+
 ### Autocomplete
 
 The terminal can autocomplete user input using a partial command, filename or folder name.
@@ -217,7 +237,11 @@ const customEnvVariables = Terminal.EnvironmentVariables.setEnvironmentVariable(
 ```
 
 ### Examples
-Check out `/demo-web` for an example of using the terminal emulator in plain HTML/JS and `demo-cli` for an example of usage in Node.js.
+This library does not prescribe a method for displaying terminal output or the user interface, so I've provided examples in Node.js, pure JavaScript/HTML/CSS and with React/JavaScript/HTML/CSS:
+
+1. View the `/demo-cli` directory for an example of usage in Node.js
+2. View the `/demo-web` directory for an example of usage in plain HTML and JavaScript
+3. Visit the [React Terminal Component website](https://github.com/rohanchandra/react-terminal-component) for usage with HTML, CSS, JavaScript and React
 
 ## Building
 
