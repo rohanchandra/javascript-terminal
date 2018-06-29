@@ -78,7 +78,7 @@ export const copyFile = (fs, sourcePath, destPath) => {
   }
 
   if (hasDirectory(fs, destPath)) {
-    // Copying file to directory without specifying the filename explictly
+    // Copying file to directory without specifying the filename explicitly
     const sourceFileName = PathUtil.getLastPathPart(sourcePath);
 
     destPath = destPath === '/' ? `/${sourceFileName}` : `${destPath}/${sourceFileName}`;
