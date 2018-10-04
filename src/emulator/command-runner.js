@@ -8,7 +8,7 @@ import * as CommandMappingUtil from 'emulator-state/command-mapping';
  * @param  {string} errorType type of emulator error
  * @return {object}           error output object
  */
-const makeRunnerErrorOutput = (errorType) => {
+const makeRunnerErrorOutput = errorType => {
   return makeErrorOutput(makeError(errorType));
 };
 
@@ -27,10 +27,22 @@ const makeRunnerErrorOutput = (errorType) => {
  * @param  {Map}    commandMapping command mapping from emulator state
  * @param  {string} commandName    name of command to run
  * @param  {array}  commandArgs    commands to provide to the command function
+ * @param {function} defaultCommand Checks if there is a command named "default" and runs that if command not found
  * @return {object}                outputs and/or new state of the emulator
  */
-export const run = (commandMapping, commandName, commandArgs) => {
+export const run = async (
+  commandMapping,
+  commandName,
+  commandArgs,
+  defaultCommand = CommandMappingUtil.getCommandFn(
+    commandMapping,
+    'default'
+  )
+) => {
   if (!CommandMappingUtil.isCommandSet(commandMapping, commandName)) {
+    if (defaultCommand) {
+      return await defaultCommand(...commandArgs);
+    }
     return {
       output: makeRunnerErrorOutput(emulatorErrorType.COMMAND_NOT_FOUND)
     };
@@ -39,10 +51,12 @@ export const run = (commandMapping, commandName, commandArgs) => {
   const command = CommandMappingUtil.getCommandFn(commandMapping, commandName);
 
   try {
-    return command(...commandArgs); // run extracted command from the mapping
+    return await command(...commandArgs); // run extracted command from the mapping
   } catch (fatalCommandError) {
     return {
-      output: makeRunnerErrorOutput(emulatorErrorType.UNEXPECTED_COMMAND_FAILURE)
+      output: makeRunnerErrorOutput(
+        emulatorErrorType.UNEXPECTED_COMMAND_FAILURE
+      )
     };
   }
 };

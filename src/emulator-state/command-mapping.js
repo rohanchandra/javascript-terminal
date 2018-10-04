@@ -73,6 +73,7 @@ export const unsetCommand = (commandMapping, commandName) => {
  * @return {function}                command function
  */
 export const getCommandFn = (commandMapping, commandName) => {
+
   if (commandMapping.has(commandName)) {
     return commandMapping.get(commandName).get('function');
   }

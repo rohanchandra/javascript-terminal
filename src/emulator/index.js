@@ -77,19 +77,19 @@ export default class Emulator {
    * @param  {Array}          [executionListeners=[]] list of plugins to notify while running the command
    * @return {EmulatorState}                          updated emulator state after running command
    */
-  execute(state, str, executionListeners = []) {
+  async execute(state, str, executionListeners = []) {
     for (const executionListener of executionListeners) {
       executionListener.onExecuteStarted(state, str);
     };
 
-    state = this._addHeaderOutput(state, str);
+    state = await this._addHeaderOutput(state, str);
 
     if (str.trim() === '') {
       // empty command string
-      state = this._addCommandOutputs(state, [makeTextOutput('')]);
+      state = await this._addCommandOutputs(state, [makeTextOutput('')]);
     } else {
       state = this._addCommandToHistory(state, str);
-      state = this._updateStateByExecution(state, str);
+      state = await this._updateStateByExecution(state, str);
     }
 
     for (const executionListener of executionListeners) {
@@ -99,12 +99,12 @@ export default class Emulator {
     return state;
   };
 
-  _updateStateByExecution(state, commandStrToExecute) {
+  async _updateStateByExecution(state, commandStrToExecute) {
     for (const {commandName, commandOptions} of parseCommands(commandStrToExecute)) {
       const commandMapping = state.getCommandMapping();
       const commandArgs = [state, commandOptions];
 
-      const {state: nextState, output, outputs} = CommandRunner.run(
+      const {state: nextState, output, outputs} = await CommandRunner.run(
         commandMapping, commandName, commandArgs
       );
 

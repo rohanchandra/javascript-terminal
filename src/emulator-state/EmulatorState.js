@@ -14,7 +14,9 @@ const COMMAND_MAPPING_KEY = 'commandMapping';
 export default class EmulatorState {
   constructor(immutable) {
     if (!immutable || !(immutable instanceof Map)) {
-      throw new Error('Do not use the constructor directly. Use the static create method.');
+      throw new Error(
+        'Do not use the constructor directly. Use the static create method.'
+      );
     }
 
     this._immutable = immutable;
@@ -57,9 +59,7 @@ export default class EmulatorState {
   }
 
   setFileSystem(newFileSystem) {
-    return new EmulatorState(
-      this.getImmutable().set(FS_KEY, newFileSystem)
-    );
+    return new EmulatorState(this.getImmutable().set(FS_KEY, newFileSystem));
   }
 
   getEnvVariables() {
@@ -77,9 +77,7 @@ export default class EmulatorState {
   }
 
   setHistory(newHistory) {
-    return new EmulatorState(
-      this.getImmutable().set(HISTORY_KEY, newHistory)
-    );
+    return new EmulatorState(this.getImmutable().set(HISTORY_KEY, newHistory));
   }
 
   getOutputs() {
@@ -87,9 +85,7 @@ export default class EmulatorState {
   }
 
   setOutputs(newOutputs) {
-    return new EmulatorState(
-      this.getImmutable().set(OUTPUTS_KEY, newOutputs)
-    );
+    return new EmulatorState(this.getImmutable().set(OUTPUTS_KEY, newOutputs));
   }
 
   getCommandMapping() {
