@@ -10,7 +10,7 @@ describe('command-runner', () => {
       chai.assert.isFunction(run);
     });
 
-    it('should run command from command mapping with no args', () => {
+    it('should run command from command mapping with no args', async () => {
       const commandMapping = createCommandMapping({
         returnTrue: {
           function: () => {return true;},
@@ -19,11 +19,11 @@ describe('command-runner', () => {
       });
 
       chai.expect(
-        run(commandMapping, 'returnTrue', [])
+        await run(commandMapping, 'returnTrue', [])
       ).to.equal(true);
     });
 
-    it('should run command from command mapping with args', () => {
+    it('should run command from command mapping with args', async() => {
       const commandMapping = createCommandMapping({
         sum: {
           function: (a, b) => {return a + b;},
@@ -32,11 +32,11 @@ describe('command-runner', () => {
       });
 
       chai.expect(
-        run(commandMapping, 'sum', [40, 2])
+        await run(commandMapping, 'sum', [40, 2])
       ).to.equal(42);
     });
 
-    it('should raise unexpected command failure internal error if command throws error', () => {
+    it('should raise unexpected command failure internal error if command throws error', async() => {
       const commandMapping = createCommandMapping({
         throwsError: {
           function: () => {throw new Error('Unhandled error');},
@@ -44,15 +44,15 @@ describe('command-runner', () => {
         }
       });
 
-      const {output} = run(commandMapping, 'throwsError', []);
+      const {output} = await run(commandMapping, 'throwsError', []);
 
       chai.expect(output.content).to.include(emulatorErrorType.UNEXPECTED_COMMAND_FAILURE);
     });
 
-    it('should raise no command error if command not in mapping', () => {
+    it('should raise no command error if command not in mapping', async() => {
       const commandMapping = createCommandMapping({});
 
-      const {output} = run(commandMapping, 'noSuchKey', []);
+      const {output} = await run(commandMapping, 'noSuchKey', []);
 
       chai.expect(output.content).to.include(emulatorErrorType.COMMAND_NOT_FOUND);
     });

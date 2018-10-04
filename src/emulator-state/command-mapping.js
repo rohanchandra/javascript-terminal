@@ -101,5 +101,5 @@ export const getCommandOptDef = (commandMapping, commandName) => {
  * @return {Seq}                     sequence of command names
  */
 export const getCommandNames = (commandMapping) => {
-  return commandMapping.keySeq();
+  return commandMapping.keySeq().filter(command => command !== 'default');
 };

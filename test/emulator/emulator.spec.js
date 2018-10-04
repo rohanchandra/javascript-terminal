@@ -54,14 +54,14 @@ describe('emulator', () => {
     emulator = new Emulator();
   });
 
-  it('should update state from command', () => {
-    const newState = emulator.execute(testCommandState, 'setsEmptyState');
+  it('should update state from command', async () => {
+    const newState = await emulator.execute(testCommandState, 'setsEmptyState');
 
     chai.expect(newState).toEqualState(emptyState);
   });
 
-  it('should add emtpy text output and header if running empty command', () => {
-    const newState = emulator.execute(testCommandState, '');
+  it('should add emtpy text output and header if running empty command',async  () => {
+    const newState = await emulator.execute(testCommandState, '');
 
     chai.expect([...newState.getOutputs()]).to.deep.equal(
       [
@@ -71,9 +71,9 @@ describe('emulator', () => {
     );
   });
 
-  describe('emulator output', () => {
-    it('should update outputs from command with list output', () => {
-      const newState = emulator.execute(testCommandState, 'setsOutputs');
+  describe('emulator output',  () => {
+    it('should update outputs from command with list output', async () => {
+      const newState = await emulator.execute(testCommandState, 'setsOutputs');
 
       chai.expect([...newState.getOutputs()]).to.deep.equal(
         [
@@ -83,8 +83,8 @@ describe('emulator', () => {
       );
     });
 
-    it('should update outputs from command with single output', () => {
-      const newState = emulator.execute(testCommandState, 'setsSingleOutput');
+    it('should update outputs from command with single output', async () => {
+      const newState = await emulator.execute(testCommandState, 'setsSingleOutput');
 
       chai.expect([...newState.getOutputs()]).to.deep.equal(
         [
@@ -94,16 +94,16 @@ describe('emulator', () => {
       );
     });
 
-    it('should update state and outputs from command', () => {
-      const newState = emulator.execute(testCommandState, 'setsEmptyStateAndOutputs');
+    it('should update state and outputs from command', async () => {
+      const newState = await emulator.execute(testCommandState, 'setsEmptyStateAndOutputs');
 
       chai.expect(newState).toEqualState(EmulatorState.create({
         outputs: createOutputs([makeTextOutput('hello')])
       }));
     });
 
-    it('should access parsed args from command', () => {
-      const newState = emulator.execute(testCommandState, 'usesArguments --a1 b2 c3 d/e/f');
+    it('should access parsed args from command', async () => {
+      const newState = await emulator.execute(testCommandState, 'usesArguments --a1 b2 c3 d/e/f');
 
       chai.expect([...newState.getOutputs()]).to.deep.equal(
         [
@@ -118,10 +118,10 @@ describe('emulator', () => {
   });
 
   describe('emulator history', () => {
-    it('should update history', () => {
-      let newState = emulator.execute(testCommandState, 'baz && foo');
+    it('should update history', async () => {
+      let newState = await emulator.execute(testCommandState, 'baz && foo');
 
-      newState = emulator.execute(newState, 'bar');
+      newState = await emulator.execute(newState, 'bar');
 
       chai.expect(newState.getHistory()).to.equal(
         List(['bar', 'baz && foo'])
