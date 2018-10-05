@@ -1,4 +1,4 @@
-/**
+1/**
  * Makes a stack iterator for a point in history.
  *
  * Can go backwards and forwards through the history and is bounded by

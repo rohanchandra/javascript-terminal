@@ -22,7 +22,8 @@ export default commandNames.reduce((mapping, commandName) => {
     ...mapping,
     [commandName]: {
       function: require(`commands/${commandName}`).default,
-      optDef: require(`commands/${commandName}`).optDef
+      optDef: require(`commands/${commandName}`).optDef,
+      help: require(`commands/${commandName}`).help
     }
   };
 }, {});

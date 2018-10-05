@@ -15,6 +15,7 @@ const substituteEnvVariables = (environmentVariables, inputStr) => {
 };
 
 export const optDef = {};
+export const help = 'Prints some output to the console';
 
 export default (state, commandOptions) => {
   const input = commandOptions.join(' ');

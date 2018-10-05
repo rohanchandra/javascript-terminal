@@ -40,7 +40,7 @@ export const isCommandSet = (commandMapping, commandName) => {
  * @param  {object}   optDef         option definition (optional)
  * @return {Map}                     command mapping
  */
-export const setCommand = (commandMapping, commandName, commandFn, optDef) => {
+export const setCommand = (commandMapping, commandName, commandFn, optDef, help) => {
   if (commandFn === undefined) {
     throw new Error(`Cannot set ${commandName} command without function`);
   }
@@ -51,7 +51,8 @@ export const setCommand = (commandMapping, commandName, commandFn, optDef) => {
 
   return commandMapping.set(commandName, fromJS({
     'function': commandFn,
-    'optDef': optDef
+    optDef,
+    help
   }));
 };
 
@@ -102,4 +103,18 @@ export const getCommandOptDef = (commandMapping, commandName) => {
  */
 export const getCommandNames = (commandMapping) => {
   return commandMapping.keySeq().filter(command => command !== 'default');
+};
+
+/**
+ * Gets the option definition of a command based on its command name
+ * @param  {Map}      commandMapping command mapping
+ * @param  {string}   commandName    name of command
+ * @return {Map}                     option definition
+ */
+export const getCommandHelp = (commandMapping, commandName) => {
+  if (commandMapping.has(commandName)) {
+    return commandMapping.get(commandName).get('help');
+  }
+
+  return undefined;
 };

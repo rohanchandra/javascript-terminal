@@ -8,7 +8,7 @@ import { getEnvironmentVariable } from 'emulator-state/environment-variables';
 const FALLBACK_USERNAME = 'root';
 
 export const optDef = {};
-
+export const help = 'Prints who the current user is to the console';
 export default (state, commandOptions) => {
   return {
     output: OutputFactory.makeTextOutput(

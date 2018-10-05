@@ -34,13 +34,12 @@ export const run = async (
   commandMapping,
   commandName,
   commandArgs,
-  defaultCommand = CommandMappingUtil.getCommandFn(
-    commandMapping,
-    'default'
-  )
+  defaultCommand = CommandMappingUtil.getCommandFn(commandMapping, 'default')
 ) => {
   if (!CommandMappingUtil.isCommandSet(commandMapping, commandName)) {
     if (defaultCommand) {
+      // If it's the default command add the command name in as the first opts
+      commandArgs[1].unshift(commandName);
       return await defaultCommand(...commandArgs);
     }
     return {

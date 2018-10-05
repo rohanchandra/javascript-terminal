@@ -15,6 +15,7 @@ const stringifyStateHistory = (state) =>
 export const optDef = {
   '-c, --clear': '' // remove history entries
 };
+export const help = 'Print history of commands';
 
 export default (state, commandOptions) => {
   const {options} = parseOptions(commandOptions, optDef);

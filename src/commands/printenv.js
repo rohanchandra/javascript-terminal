@@ -16,7 +16,7 @@ const stringifyEnvVariables = (envVariables) => {
 };
 
 export const optDef = {};
-
+export const help = 'Prints all currently set environment variables';
 export default (state, commandOptions) => {
   const {argv} = parseOptions(commandOptions, optDef);
   const envVariables = state.getEnvVariables();
