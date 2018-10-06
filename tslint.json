@@ -1,0 +1,15 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-config-prettier"
+    ],
+    "jsRules": {},
+    "rules": {
+      "semicolon": false,
+      "member-ordering": false,
+      "member-access": false,
+      "variable-name": false
+    },
+    "rulesDirectory": []
+}

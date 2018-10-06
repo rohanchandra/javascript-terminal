@@ -1,4 +1,4 @@
-const { Emulator, EmulatorState, OutputType } = require('../lib/terminal.js');
+const { Emulator, EmulatorState, OutputType } = require('../lib');
 
 /**
  * Processes multiple outputs for display.
