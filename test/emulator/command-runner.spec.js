@@ -56,5 +56,13 @@ describe('command-runner', () => {
 
       chai.expect(output.content).to.include(emulatorErrorType.COMMAND_NOT_FOUND);
     });
+
+    it('should run a notFoundCallback command if command not in mapping and notFoundCallback provided', () => {
+      const commandMapping = createCommandMapping({});
+      const notFoundCallback = ()=> true;
+
+      chai.expect(run(commandMapping, 'noSuchKey', [], notFoundCallback)).to.equal(true);
+    });
+
   });
 });

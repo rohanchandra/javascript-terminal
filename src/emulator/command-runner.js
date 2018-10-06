@@ -34,7 +34,7 @@ export const run = (commandMapping, commandName, commandArgs, notFoundCallback =
   output: makeRunnerErrorOutput(emulatorErrorType.COMMAND_NOT_FOUND)
 })) => {
   if (!CommandMappingUtil.isCommandSet(commandMapping, commandName)) {
-    return notFoundCallback();
+    return notFoundCallback(...commandArgs);
   }
 
   const command = CommandMappingUtil.getCommandFn(commandMapping, commandName);
