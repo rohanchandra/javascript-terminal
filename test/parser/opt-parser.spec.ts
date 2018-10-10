@@ -1,6 +1,6 @@
 import chai from 'chai';
 
-import parseOptions from 'parser/option-parser';
+import parseOptions from '../../src/parser/option-parser';
 
 // NB: Only rudimentary unit tests as `option-parser` is a wrapper for the
 // `get-options` library

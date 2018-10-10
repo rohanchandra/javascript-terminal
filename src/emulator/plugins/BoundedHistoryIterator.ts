@@ -19,12 +19,12 @@ export default class BoundedHistoryIterator {
     return this.index + 1 < this.historyStack.size;
   }
 
-  up() {
+  up(): string {
     if (this.hasUp()) {
       this.index++;
     }
 
-    return this.historyStack.get(this.index);
+    return this.historyStack.get(this.index)!;
   }
 
   hasDown() {

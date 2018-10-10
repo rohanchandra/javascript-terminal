@@ -7,7 +7,7 @@ import { IHistoryStack } from '../types';
  * @param  {array}  [entries=[]] commands which have already been run (if any)
  * @return {Stack}               history list
  */
-export const create = (entries = []): IHistoryStack => {
+export const create = (entries: string[] = []): IHistoryStack => {
   return Stack.of(...entries);
 };
 

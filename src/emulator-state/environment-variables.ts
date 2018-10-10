@@ -5,9 +5,10 @@ import { IEnvVars } from '../types';
  * Environment variable mapping containing arbitary data accessed by any
  * command or the emulator as a key-value pair
  * @param  {Object} [defaultVariables={}] default environment variables
+ * @param cwd
  * @return {Map}                          environment variables
  */
-export const create = (defaultVariables = {}, cwd = '/'): IEnvVars => {
+export const create = (defaultVariables: object = {}, cwd: string = '/'): IEnvVars => {
   if (!cwd && !defaultVariables.hasOwnProperty('cwd')) {
     throw new Error(
       "Failed to create environment variables. Missing 'cwd' (current working directory)."

@@ -43,5 +43,4 @@ export default (state: EmulatorState, commandOptions: string[]) => {
     };
   }
 
-  return {};
 };

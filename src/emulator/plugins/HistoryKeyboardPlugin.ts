@@ -26,7 +26,7 @@ export default class HistoryKeyboardPlugin {
   completeUp(): string {
     this.createHistoryIteratorIfNull();
 
-    return this._nullableHistoryIterator!.up() as string;
+    return this._nullableHistoryIterator!.up();
   }
 
   completeDown(): string {

@@ -1,12 +1,12 @@
 {
   "name": "async-javascript-terminal",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Emulate a terminal environment in Typescript",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "build": "rm -rf ./lib && tsc",
-    "test": "cross-env mocha -r ts-node/register --colors 'test/**/*.spec.js' 'demo-**/**/*.spec.js'",
+    "test": "mocha --require ts-node/register test/**/*.spec.ts",
     "test:min": "yarn run test --reporter min",
     "test:coverage": "nyc yarn run test",
     "cli": "ts-node ./demo-cli/index.ts",
@@ -51,7 +51,7 @@
     "typescript": "latest"
   },
   "dependencies": {
-    "get-options": "^1.1.1",
+    "get-options": "^1.1.2",
     "immutable": "^4.0.0-rc.9",
     "minimatch": "^3.0.4",
     "minimatch-capture": "^1.1.0"
