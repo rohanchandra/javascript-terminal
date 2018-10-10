@@ -1,11 +1,17 @@
-import { List, Map, Record, Stack } from 'immutable';
+import { List, Map, Stack } from 'immutable';
 import { create as createCommandMapping } from '../emulator-state/command-mapping';
 import { create as createEnvironmentVariables } from '../emulator-state/environment-variables';
 import { create as createFileSystem } from '../emulator-state/file-system';
 import { create as createHistory } from '../emulator-state/history';
 import { create as createOutputs } from '../emulator-state/outputs';
 
-import { ICommandMapping, IEnvVars, IFileSystem } from '../types';
+import {
+  ICommandMapping,
+  IEnvVars,
+  IFileSystem,
+  IHistoryStack,
+  OutputRecordType
+} from '../types';
 
 const FS_KEY = 'fs';
 const ENVIRONMENT_VARIABLES_KEY = 'environmentVariables';
@@ -58,45 +64,45 @@ export default class EmulatorState {
     return new EmulatorState(stateMap);
   }
 
-  getFileSystem() {
+  getFileSystem(): IFileSystem {
     return this.getImmutable().get(FS_KEY);
   }
 
-  setFileSystem(newFileSystem: IFileSystem) {
+  setFileSystem(newFileSystem: IFileSystem): EmulatorState {
     return new EmulatorState(this.getImmutable().set(FS_KEY, newFileSystem));
   }
 
-  getEnvVariables() {
+  getEnvVariables(): IEnvVars {
     return this.getImmutable().get(ENVIRONMENT_VARIABLES_KEY);
   }
 
-  setEnvVariables(newEnvVariables: IEnvVars) {
+  setEnvVariables(newEnvVariables: IEnvVars): EmulatorState {
     return new EmulatorState(
       this.getImmutable().set(ENVIRONMENT_VARIABLES_KEY, newEnvVariables)
     );
   }
 
-  getHistory() {
+  getHistory(): IHistoryStack {
     return this.getImmutable().get(HISTORY_KEY);
   }
 
-  setHistory(newHistory: Stack<string>) {
+  setHistory(newHistory: Stack<string>): EmulatorState {
     return new EmulatorState(this.getImmutable().set(HISTORY_KEY, newHistory));
   }
 
-  getOutputs() {
+  getOutputs(): List<OutputRecordType> {
     return this.getImmutable().get(OUTPUTS_KEY);
   }
 
-  setOutputs(newOutputs: List<Record<any>>) {
+  setOutputs(newOutputs: List<OutputRecordType>): EmulatorState {
     return new EmulatorState(this.getImmutable().set(OUTPUTS_KEY, newOutputs));
   }
 
-  getCommandMapping() {
+  getCommandMapping(): ICommandMapping {
     return this.getImmutable().get(COMMAND_MAPPING_KEY);
   }
 
-  setCommandMapping(newCommandMapping: ICommandMapping) {
+  setCommandMapping(newCommandMapping: ICommandMapping): EmulatorState {
     return new EmulatorState(
       this.getImmutable().set(COMMAND_MAPPING_KEY, newCommandMapping)
     );

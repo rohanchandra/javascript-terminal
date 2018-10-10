@@ -1,4 +1,5 @@
 import { Stack } from 'immutable';
+import { IHistoryStack } from '../types';
 
 /**
  * Creates a new history stack of previous commands that have been run in the
@@ -6,7 +7,7 @@ import { Stack } from 'immutable';
  * @param  {array}  [entries=[]] commands which have already been run (if any)
  * @return {Stack}               history list
  */
-export const create = (entries = []) => {
+export const create = (entries = []): IHistoryStack => {
   return Stack.of(...entries);
 };
 
@@ -17,6 +18,9 @@ export const create = (entries = []) => {
  * @param  {string} commandRun the command to store
  * @return {Stack}             history
  */
-export const recordCommand = (history: Stack<string>, commandRun: string) => {
+export const recordCommand = (
+  history: Stack<string>,
+  commandRun: string
+): IHistoryStack => {
   return history.push(commandRun);
 };

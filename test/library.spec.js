@@ -1,6 +1,6 @@
 import chai from 'chai';
 
-import * as Terminal from '../lib/terminal.js';
+import * as Terminal from '../src';
 
 describe('Given the Terminal library', () => {
   it('should define all API functions', () => {

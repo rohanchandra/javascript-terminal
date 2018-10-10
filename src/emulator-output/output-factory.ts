@@ -30,10 +30,10 @@ export const makeHeaderOutput = (cwd: string, command: string) => {
 
 /**
  * Unstyled text output
- * @param  {string} content plain string output from a command or the emulator
- * @return {OutputRecord}   output record
+ * @param  content plain string output from a command or the emulator
+ * @return output record
  */
-export const makeTextOutput = (content: string) => {
+export const makeTextOutput = (content: any ) => {
   return new OutputRecord({
     content,
     type: TEXT_OUTPUT_TYPE

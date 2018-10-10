@@ -1,5 +1,5 @@
 import { List, Seq } from 'immutable';
-import minimatch from 'minimatch';
+import * as minimatch from 'minimatch';
 import capture from 'minimatch-capture';
 
 import { IFileSystem } from '../../types';

@@ -1,4 +1,5 @@
-import { Map, Record } from 'immutable';
+import { Map, Stack } from 'immutable';
+import { OutputRecord } from './emulator-output/output-factory';
 import { emulatorErrorType } from './emulator/emulator-error';
 import { fsErrorType } from './fs/fs-error';
 
@@ -24,7 +25,7 @@ export interface IEnvVars extends Map<string, string> {}
 
 export interface IFileSystem extends Map<string, any> {}
 
-export type OutputRecordType = Record<any>;
+export type OutputRecordType = typeof OutputRecord;
 
 export type EmulatorErrorType = fsErrorType | emulatorErrorType;
 
@@ -33,3 +34,5 @@ export interface IEmulatorError {
   source: 'emulator' | 'fs';
   type: EmulatorErrorType;
 }
+
+export interface IHistoryStack extends Stack<string> {}

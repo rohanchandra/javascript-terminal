@@ -177,6 +177,6 @@ export default class Emulator {
   getHelp(state: EmulatorState, commandName: string) {
     const commandMapping = state.getCommandMapping();
 
-    return commandMapping.get(commandName).get('help');
+    return commandMapping.get(commandName)!.get('help');
   }
 }
