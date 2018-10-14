@@ -1,14 +1,20 @@
 import chai from 'chai';
 
-import { OutputRecord, makeHeaderOutput, makeTextOutput, makeErrorOutput } from 'emulator-output/output-factory';
-import * as Types from 'emulator-output/output-type';
+import {
+  makeErrorOutput,
+  makeHeaderOutput,
+  makeTextOutput,
+  OutputRecord
+} from '../../src/emulator-output/output-factory';
+import * as Types from '../../src/emulator-output/output-type';
+import {fsErrorType} from "../../src/fs/fs-error";
 
 describe('output-factory', () => {
   describe('OutputRecord', () => {
     it('should create a record with type and content', () => {
       const newRecord = new OutputRecord({
-        type: 'the type',
-        content: ['the content']
+        content: ['the content'],
+        type: 'the type'
       });
 
       chai.expect(newRecord.type).to.equal('the type');
@@ -28,7 +34,9 @@ describe('output-factory', () => {
     it('should create a record with the cwd', () => {
       const outputRecord = makeHeaderOutput('the cwd', 'the command');
 
-      chai.expect(outputRecord.content).to.deep.equal({cwd: 'the cwd', command: 'the command'});
+      chai
+        .expect(outputRecord.content)
+        .to.deep.equal({ cwd: 'the cwd', command: 'the command' });
     });
 
     it('should create a record with header type', () => {
@@ -55,17 +63,21 @@ describe('output-factory', () => {
   describe('makeTextOutput', () => {
     it('should combine source of error and type of error in output', () => {
       const errorRecord = makeErrorOutput({
-        source: 'the source',
-        type: 'the type'
+        message: 'Other',
+        source: 'fs',
+        type: fsErrorType.OTHER
       });
 
-      chai.expect(errorRecord.content).to.be.deep.equal('the source: the type');
+      chai.expect(errorRecord.content).to.be.deep.equal('fs: Other');
     });
 
     it('should create a record with error type', () => {
+
+
       const errorRecord = makeErrorOutput({
-        source: 'the source',
-        type: 'the type'
+        message: 'Error',
+        source: 'fs',
+        type: fsErrorType.OTHER
       });
 
       chai.expect(errorRecord.type).to.equal(Types.TEXT_ERROR_OUTPUT_TYPE);

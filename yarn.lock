@@ -757,7 +757,7 @@ get-func-name@^2.0.0:
   resolved "https://registry.yarnpkg.com/get-func-name/-/get-func-name-2.0.0.tgz#ead774abee72e20409433a066366023dd6887a41"
   integrity sha1-6td0q+5y4gQJQzoGY2YCPdaIekE=
 
-get-options@^1.1.2:
+get-options@1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/get-options/-/get-options-1.1.2.tgz#4be2b956d5cb9b10e118515fa90bc05800bd4b86"
   integrity sha512-Dc49LZbkyeqK9Beuws3e8kxG8RcRBjHfC4Cvzc94xt0mvedfA+W55mGWxxAt4l3AX2xwLh0yH8tjFs4Rl2arxw==

@@ -1,8 +1,8 @@
 import chai from '../_plugins/state-equality-plugin';
 
-import EmulatorState from 'emulator-state/EmulatorState';
-import { create as createHistory } from 'emulator-state/history';
-import history from 'commands/history';
+import history from '../../src/commands/history';
+import EmulatorState from '../../src/emulator-state/EmulatorState';
+import { create as createHistory } from '../../src/emulator-state/history';
 
 describe('history', () => {
   const expectedHistory = ['pwd', 'cd /foo', 'echo abc'];
@@ -12,14 +12,14 @@ describe('history', () => {
   const stateWithNoHistory = EmulatorState.createEmpty();
 
   it('should print history', () => {
-    const {output} = history(stateWithExpectedHistory, []);
+    const { output } = history(stateWithExpectedHistory, []);
 
     chai.expect(output.content).to.equal(expectedHistory.join('\n'));
   });
 
   describe('arg: -c', () => {
     it('should delete history', () => {
-      const {state} = history(stateWithExpectedHistory, ['-c']);
+      const { state } = history(stateWithExpectedHistory, ['-c']);
 
       chai.expect(state).toEqualState(stateWithNoHistory);
     });

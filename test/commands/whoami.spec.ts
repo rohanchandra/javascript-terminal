@@ -2,9 +2,9 @@ import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
 chai.use(chaiImmutable);
 
-import EmulatorState from 'emulator-state/EmulatorState';
-import { create as createEnvironmentVariables } from 'emulator-state/environment-variables';
-import whoami from 'commands/whoami';
+import whoami from '../../src/commands/whoami';
+import EmulatorState from '../../src/emulator-state/EmulatorState';
+import { create as createEnvironmentVariables } from '../../src/emulator-state/environment-variables';
 
 describe('whoami', () => {
   it('should print root as the fallback usernname', () => {

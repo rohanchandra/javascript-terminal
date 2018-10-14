@@ -54,7 +54,7 @@ export const setCommand = (
   commandMapping: ICommandMapping,
   commandName: string,
   commandFn: () => any,
-  optDef: IOptDef,
+  optDef: object,
   help: string
 ): ICommandMapping => {
   if (commandFn === undefined) {

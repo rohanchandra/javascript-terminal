@@ -29,7 +29,7 @@ const copySourceFile = (
   srcPath: string,
   destPath: string,
   isTrailingPathDest: boolean
-) => {
+): { output?: any; state?: EmulatorState } => {
   const fs = state.getFileSystem();
 
   if (isTrailingPathDest && !DirectoryOp.hasDirectory(fs, destPath)) {

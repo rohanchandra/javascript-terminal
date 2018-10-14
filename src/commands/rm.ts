@@ -9,7 +9,7 @@ import { fsErrorType, makeError } from '../fs/fs-error';
 import * as DirOp from '../fs/operations-with-permissions/directory-operations';
 import * as FileOp from '../fs/operations-with-permissions/file-operations';
 import parseOptions from '../parser/option-parser';
-import {IFileSystem} from "../types";
+import { IFileSystem } from '../types';
 
 export const optDef = {
   '--no-preserve-root, --noPreserveRoot': '',
@@ -24,7 +24,10 @@ const makeNoPathErrorOutput = () => {
   };
 };
 
-export default (state: EmulatorState, commandOptions: string[]) => {
+export default (
+  state: EmulatorState,
+  commandOptions: string[]
+): { output?: any; state?: EmulatorState } => {
   const { argv, options } = parseOptions(commandOptions, optDef);
 
   if (argv.length === 0) {

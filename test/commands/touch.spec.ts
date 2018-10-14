@@ -1,8 +1,8 @@
 import chai from '../_plugins/state-equality-plugin';
 
-import EmulatorState from 'emulator-state/EmulatorState';
-import {create as createFileSystem} from 'emulator-state/file-system';
-import touch from 'commands/touch';
+import touch from '../../src/commands/touch';
+import EmulatorState from '../../src/emulator-state/EmulatorState';
+import { create as createFileSystem } from '../../src/emulator-state/file-system';
 
 describe('touch', () => {
   const emptyState = EmulatorState.createEmpty();
@@ -22,20 +22,20 @@ describe('touch', () => {
   });
 
   it('should create empty file with given names', () => {
-    const {state} = touch(emptyState, ['fileName']);
+    const { state } = touch(emptyState, ['fileName']);
 
     chai.expect(state).toEqualState(stateWithEmptyFile);
   });
 
   it('should create empty file with absolute path', () => {
-    const {state} = touch(emptyState, ['/fileName']);
+    const { state } = touch(emptyState, ['/fileName']);
 
     chai.expect(state).toEqualState(stateWithEmptyFile);
   });
 
   describe('err: no directory', () => {
     it('should return error output if no directory for file', () => {
-      const {output} = touch(emptyState, ['/no-such-dir/fileName']);
+      const { output } = touch(emptyState, ['/no-such-dir/fileName']);
 
       chai.expect(output.type).to.equal('TEXT_ERROR_OUTPUT');
     });

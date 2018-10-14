@@ -2,9 +2,9 @@ import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
 chai.use(chaiImmutable);
 
-import EmulatorState from 'emulator-state/EmulatorState';
-import { create as createEnvironmentVariables } from 'emulator-state/environment-variables';
-import pwd from 'commands/pwd';
+import pwd from '../../src/commands/pwd';
+import EmulatorState from '../../src/emulator-state/EmulatorState';
+import { create as createEnvironmentVariables } from '../../src/emulator-state/environment-variables';
 
 describe('pwd', () => {
   it('should print the working directory', () => {
@@ -12,7 +12,7 @@ describe('pwd', () => {
       environmentVariables: createEnvironmentVariables({}, '/dir')
     });
 
-    const {output} = pwd(state, []);
+    const { output } = pwd(state, []);
 
     chai.expect(output.content).to.equal('/dir');
   });

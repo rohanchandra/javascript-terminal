@@ -2,28 +2,31 @@ import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
 chai.use(chaiImmutable);
 
-import EmulatorState from 'emulator-state/EmulatorState';
-import { create as createEnvironmentVariables } from 'emulator-state/environment-variables';
-import printenv from 'commands/printenv';
+import printenv from '../../src/commands/printenv';
+import EmulatorState from '../../src/emulator-state/EmulatorState';
+import { create as createEnvironmentVariables } from '../../src/emulator-state/environment-variables';
 
 describe('printenv', () => {
   const state = EmulatorState.create({
-    environmentVariables: createEnvironmentVariables({
-      'STR': 'baz',
-      'NUM': 1337
-    }, '/dir')
+    environmentVariables: createEnvironmentVariables(
+      {
+        NUM: 1337,
+        STR: 'baz'
+      },
+      '/dir'
+    )
   });
 
   it('should print all environment variables when not given any args', () => {
-    const {output} = printenv(state, []);
+    const { output } = printenv(state, []);
 
-    const expectedCommands = ['cwd=/dir', 'STR=baz', 'NUM=1337'];
+    const expectedCommands = ['cwd=/dir', 'NUM=1337', 'STR=baz'];
 
     chai.expect(output.content).to.deep.equal(expectedCommands.join('\n'));
   });
 
   it('should print single environment variable given arg', () => {
-    const {output} = printenv(state, ['STR']);
+    const { output } = printenv(state, ['STR']);
 
     chai.expect(output.content).to.equal('baz');
   });

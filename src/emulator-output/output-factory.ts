@@ -13,6 +13,7 @@ import { IEmulatorError } from '../types';
  */
 export const OutputRecord = new (Record as any)({
   content: undefined,
+  date: undefined,
   type: undefined
 });
 
@@ -21,9 +22,10 @@ export const OutputRecord = new (Record as any)({
  * @param  {string} cwd   the current working directory path
  * @param  {string} command   the current working directory path
  */
-export const makeHeaderOutput = (cwd: string, command: string) => {
+export const makeHeaderOutput = (cwd: string, command?: string) => {
   return new OutputRecord({
     content: { cwd, command },
+    date: Date.now(),
     type: HEADER_OUTPUT_TYPE
   });
 };

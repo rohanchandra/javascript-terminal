@@ -3,7 +3,7 @@ import { fromJS } from 'immutable';
 import * as DirOp from '../fs/operations/directory-operations';
 import * as FileUtil from '../fs/util/file-util';
 
-const DEFAULT_FILE_SYSTEM = {
+const DEFAULT_FILE_SYSTEM: object = {
   '/': FileUtil.makeDirectory()
 };
 

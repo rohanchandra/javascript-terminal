@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
 chai.use(chaiImmutable);
 
-import commandMapping, { commandNames } from 'commands';
+import commandMapping, { commandNames } from '../../../src/commands';
 
 describe('commands', () => {
   describe('default command mapping', () => {

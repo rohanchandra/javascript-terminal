@@ -1,10 +1,9 @@
 import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
-import { Seq, Map } from 'immutable';
+import { Map, Seq } from 'immutable';
+import * as CommandMapping from '../../src/emulator-state/command-mapping';
 
 chai.use(chaiImmutable);
-
-import * as CommandMapping from 'emulator-state/command-mapping';
 
 describe('command-mapping', () => {
   const emptyCommandMapping = CommandMapping.create({});
@@ -20,40 +19,48 @@ describe('command-mapping', () => {
 
     it('should create command map from JS object', () => {
       const cmdMapping = CommandMapping.create({
-        'a': {
+        a: {
           function: () => true,
+          help: '',
           optDef: {}
         }
       });
 
-      chai.expect(CommandMapping.getCommandFn(cmdMapping, 'a')()).to.equal(true);
+      chai
+        .expect(CommandMapping.getCommandFn(cmdMapping, 'a')())
+        .to.equal(true);
     });
 
     it('should throw error if missing command function', () => {
       const jsMapping = {
-        'a': {
+        a: {
           optDef: {}
         }
       };
 
+      // @ts-ignore
       chai.expect(() => CommandMapping.create(jsMapping)).to.throw();
     });
 
     it('should throw error if missing option definition', () => {
       const jsMapping = {
-        'a': {
+        a: {
           function: () => true
         }
       };
 
+      // @ts-ignore
       chai.expect(() => CommandMapping.create(jsMapping)).to.throw();
     });
   });
 
   describe('isCommandSet', () => {
     const commandMapping = CommandMapping.create({
-      'hello': {
-        function: () => {},
+      hello: {
+        function: () => {
+          return;
+        },
+        help: '',
         optDef: {}
       }
     });
@@ -63,15 +70,15 @@ describe('command-mapping', () => {
     });
 
     it('should return true if command exists', () => {
-      chai.expect(
-        CommandMapping.isCommandSet(commandMapping, 'hello')
-      ).to.equal(true);
+      chai
+        .expect(CommandMapping.isCommandSet(commandMapping, 'hello'))
+        .to.equal(true);
     });
 
     it('should return false if command does not exist', () => {
-      chai.expect(
-        CommandMapping.isCommandSet(commandMapping, 'noSuchCommand')
-      ).to.equal(false);
+      chai
+        .expect(CommandMapping.isCommandSet(commandMapping, 'noSuchCommand'))
+        .to.equal(false);
     });
   });
 
@@ -82,8 +89,11 @@ describe('command-mapping', () => {
 
     it('should add a command to an existing mapping', () => {
       const commandMapping = CommandMapping.create({
-        'foo': {
-          function: () => {},
+        foo: {
+          function: () => {
+            return;
+          },
+          help: '',
           optDef: {}
         }
       });
@@ -91,40 +101,56 @@ describe('command-mapping', () => {
       const addedFunction = () => true;
 
       const actualMapping = CommandMapping.setCommand(
-        commandMapping, 'baz', addedFunction, {}
+        commandMapping,
+        'baz',
+        addedFunction,
+        {},
+        ''
       );
 
       const expectedMapping = CommandMapping.create({
-        'foo': {
-          function: () => {},
+        foo: {
+          function: () => {
+            return;
+          },
+          help: '',
           optDef: {}
         },
-        'baz': {
+        baz: {
           function: addedFunction,
+          help: '',
           optDef: {}
         }
       });
 
       chai.expect(actualMapping.keySeq()).to.equal(expectedMapping.keySeq());
-      chai.expect(actualMapping.get('baz')).to.equal(expectedMapping.get('baz'));
+      chai
+        .expect(actualMapping.get('baz'))
+        .to.equal(expectedMapping.get('baz'));
     });
 
     it('should override a command if it already is defined', () => {
       const commandMapping = CommandMapping.create({
-        'baz': {
+        baz: {
           function: () => false,
-          optDef: {'c': 'd'}
+          help: '',
+          optDef: { c: 'd' }
         }
       });
 
       const actualMapping = CommandMapping.setCommand(
-        commandMapping, 'baz', () => true, {'a': 'b'}
+        commandMapping,
+        'baz',
+        () => true,
+        { a: 'b' },
+        'help'
       );
 
       const expectedMapping = CommandMapping.create({
-        'baz': {
+        baz: {
           function: () => true,
-          optDef: {'a': 'b'}
+          help: '',
+          optDef: { a: 'b' }
         }
       });
 
@@ -133,12 +159,17 @@ describe('command-mapping', () => {
 
     it('should add a command to empty mapping', () => {
       const actualMapping = CommandMapping.setCommand(
-        emptyCommandMapping, 'baz', () => true, {}
+        emptyCommandMapping,
+        'baz',
+        () => true,
+        {},
+        'help'
       );
 
       const expectedMapping = CommandMapping.create({
-        'baz': {
+        baz: {
           function: () => true,
+          help: '',
           optDef: {}
         }
       });
@@ -147,19 +178,33 @@ describe('command-mapping', () => {
     });
 
     it('should throw error if missing option definition', () => {
-      chai.expect(() =>
-        CommandMapping.setCommand(
-          emptyCommandMapping, 'baz', () => true, undefined
+      chai
+        .expect(() =>
+          CommandMapping.setCommand(
+            emptyCommandMapping,
+            'baz',
+            () => true,
+            // @ts-ignore
+            undefined,
+            'help'
+          )
         )
-      ).to.throw();
+        .to.throw();
     });
 
     it('should throw error if missing function', () => {
-      chai.expect(() =>
-        CommandMapping.setCommand(
-          emptyCommandMapping, 'baz', undefined, {}
+      chai
+        .expect(() =>
+          CommandMapping.setCommand(
+            emptyCommandMapping,
+            'baz',
+            // @ts-ignore
+            undefined,
+            {},
+            'help'
+          )
         )
-      ).to.throw();
+        .to.throw();
     });
   });
 
@@ -170,21 +215,26 @@ describe('command-mapping', () => {
 
     it('should remove a command which is set', () => {
       const commandMapping = CommandMapping.create({
-        'hello': {
-          function: () => {},
+        hello: {
+          function: () => {
+            return;
+          },
+          help: '',
           optDef: {}
         }
       });
 
-      chai.expect(
-        CommandMapping.unsetCommand(commandMapping, 'hello')
-      ).to.equal(emptyCommandMapping);
+      chai
+        .expect(CommandMapping.unsetCommand(commandMapping, 'hello'))
+        .to.equal(emptyCommandMapping);
     });
 
     it('should ignore removal if command does not exist', () => {
-      chai.expect(
-        CommandMapping.unsetCommand(emptyCommandMapping, 'noSuchCommand')
-      ).to.equal(emptyCommandMapping);
+      chai
+        .expect(
+          CommandMapping.unsetCommand(emptyCommandMapping, 'noSuchCommand')
+        )
+        .to.equal(emptyCommandMapping);
     });
   });
 
@@ -195,12 +245,14 @@ describe('command-mapping', () => {
 
     it('should return function which is set', () => {
       const commandMapping = CommandMapping.create({
-        'hello': {
-          function: () => true,
+        goodbye: {
+          function: () => false,
+          help: '',
           optDef: {}
         },
-        'goodbye': {
-          function: () => false,
+        hello: {
+          function: () => true,
+          help: '',
           optDef: {}
         }
       });
@@ -211,9 +263,11 @@ describe('command-mapping', () => {
     });
 
     it('should return undefined if function is not set', () => {
-      chai.expect(
-        CommandMapping.getCommandFn(emptyCommandMapping, 'noSuchFunction')
-      ).to.equal(undefined);
+      chai
+        .expect(
+          CommandMapping.getCommandFn(emptyCommandMapping, 'noSuchFunction')
+        )
+        .to.equal(undefined);
     });
   });
 
@@ -224,36 +278,51 @@ describe('command-mapping', () => {
 
     it('should return function which is set', () => {
       const commandMapping = CommandMapping.create({
-        'hello': {
+        hello: {
           function: () => true,
-          optDef: {'key': 'value'}
+          help: '',
+          optDef: { key: 'value' }
         }
       });
 
-      const actualOptDef = CommandMapping.getCommandOptDef(commandMapping, 'hello');
+      const actualOptDef = CommandMapping.getCommandOptDef(
+        commandMapping,
+        'hello'
+      );
 
-      chai.expect(actualOptDef).to.equal(new Map({'key': 'value'}));
+      chai.expect(actualOptDef).to.equal(Map({ key: 'value' }));
     });
 
     it('should return undefined if function is not set', () => {
-      chai.expect(
-        CommandMapping.getCommandOptDef(emptyCommandMapping, 'noSuchFunction')
-      ).to.equal(undefined);
+      chai
+        .expect(
+          CommandMapping.getCommandOptDef(emptyCommandMapping, 'noSuchFunction')
+        )
+        .to.equal(undefined);
     });
   });
 
   describe('getCommandNames', () => {
     const commandMapping = CommandMapping.create({
-      'a': {
-        function: () => {},
+      a: {
+        function: () => {
+          return;
+        },
+        help: '',
         optDef: {}
       },
-      'b': {
-        function: () => {},
+      b: {
+        function: () => {
+          return;
+        },
+        help: '',
         optDef: {}
       },
-      'c': {
-        function: () => {},
+      c: {
+        function: () => {
+          return;
+        },
+        help: '',
         optDef: {}
       }
     });
@@ -263,9 +332,9 @@ describe('command-mapping', () => {
     });
 
     it('should return sequence of command names', () => {
-      chai.expect(
-        CommandMapping.getCommandNames(commandMapping)
-      ).to.equal(Seq(['a', 'b', 'c']));
+      chai
+        .expect(CommandMapping.getCommandNames(commandMapping))
+        .to.equal(Seq(['a', 'b', 'c']));
     });
   });
 });

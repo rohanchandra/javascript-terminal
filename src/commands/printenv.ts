@@ -23,7 +23,10 @@ const stringifyEnvVariables = (envVariables: IEnvVars) => {
 
 export const optDef = {};
 export const help = 'Prints all currently set environment variables';
-export default (state: EmulatorState, commandOptions: string[]) => {
+export default (
+  state: EmulatorState,
+  commandOptions: string[]
+): { output?: any } => {
   const { argv } = parseOptions(commandOptions, optDef);
   const envVariables = state.getEnvVariables();
 
@@ -42,5 +45,5 @@ export default (state: EmulatorState, commandOptions: string[]) => {
       output: OutputFactory.makeTextOutput(varValue)
     };
   }
-
+  return {};
 };

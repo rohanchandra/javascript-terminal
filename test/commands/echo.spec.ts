@@ -2,9 +2,9 @@ import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
 chai.use(chaiImmutable);
 
-import EmulatorState from 'emulator-state/EmulatorState';
-import { create as createEnvironmentVariables } from 'emulator-state/environment-variables';
-import echo from 'commands/echo';
+import EmulatorState from '../../src/emulator-state/EmulatorState';
+import { create as createEnvironmentVariables } from '../../src/emulator-state/environment-variables';
+import echo from '../../src/commands/echo';
 
 describe('echo', () => {
   const state = EmulatorState.create({
