@@ -38,6 +38,7 @@ export const makeHeaderOutput = (cwd: string, command?: string) => {
 export const makeTextOutput = (content: any ) => {
   return new OutputRecord({
     content,
+    date: Date.now(),
     type: TEXT_OUTPUT_TYPE
   });
 };
@@ -50,6 +51,7 @@ export const makeTextOutput = (content: any ) => {
 export const makeErrorOutput = (err: IEmulatorError) => {
   return new OutputRecord({
     content: `${err.source}: ${err.type}`,
+    date: Date.now(),
     type: TEXT_ERROR_OUTPUT_TYPE
   });
 };
