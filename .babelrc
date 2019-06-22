@@ -1,4 +1,14 @@
 {
-  "presets": ["env"],
-  "plugins": ["babel-plugin-add-module-exports", "transform-object-rest-spread"]
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "modules": "commonjs"
+      }
+    ]
+  ],
+  "plugins": [
+    "add-module-exports",
+    "@babel/plugin-proposal-object-rest-spread",
+  ]
 }
