@@ -46,7 +46,6 @@
     "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
     "eslint-loader": "^2.1.2",
-    "eslint-plugin-react": "^7.13.0",
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
     "webpack": "^4.35.0",
