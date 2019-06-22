@@ -14,7 +14,7 @@ import { resolvePath } from 'emulator-state/util';
 /**
  * Copy from a source file into a directory or another file.
  *
- * A trailing slash / can be used in the destination to explictly state the
+ * A trailing slash / can be used in the destination to explicitly state the
  * destination is a directory and not a file.
  * @param  {Map}     state              emulator state
  * @param  {string}  srcPath            source file path

@@ -27,13 +27,14 @@ const makeRunnerErrorOutput = (errorType) => {
  * @param  {Map}    commandMapping command mapping from emulator state
  * @param  {string} commandName    name of command to run
  * @param  {array}  commandArgs    commands to provide to the command function
+ * @param  {function}  notFoundCallback a default function to be run if no command is found
  * @return {object}                outputs and/or new state of the emulator
  */
-export const run = (commandMapping, commandName, commandArgs) => {
+export const run = (commandMapping, commandName, commandArgs, notFoundCallback = () => ({
+  output: makeRunnerErrorOutput(emulatorErrorType.COMMAND_NOT_FOUND)
+})) => {
   if (!CommandMappingUtil.isCommandSet(commandMapping, commandName)) {
-    return {
-      output: makeRunnerErrorOutput(emulatorErrorType.COMMAND_NOT_FOUND)
-    };
+    return notFoundCallback(...commandArgs);
   }
 
   const command = CommandMappingUtil.getCommandFn(commandMapping, commandName);

@@ -244,6 +244,7 @@ This library does not prescribe a method for displaying terminal output or the u
 1. View the `/demo-cli` directory for an example of usage in Node.js
 2. View the `/demo-web` directory for an example of usage in plain HTML and JavaScript
 3. Visit the [React Terminal Component website](https://github.com/rohanchandra/react-terminal-component) for usage with HTML, CSS, JavaScript and React
+4. See [react-native-terminal-component](https://github.com/Cawfree/react-native-terminal-component) by [@Cawfee](https://github.com/Cawfree) for a React Native wrapper (fork)
 
 ## Building
 
