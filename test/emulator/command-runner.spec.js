@@ -1,7 +1,8 @@
 import { create as createCommandMapping } from 'emulator-state/command-mapping';
 import chai from 'chai';
 
-import { run } from 'emulator/command-runner';
+import { makeRunnerErrorOutput, run } from 'emulator/command-runner';
+import { makeHeaderOutput, makeTextOutput } from 'emulator-output/output-factory';
 import { emulatorErrorType } from 'emulator/emulator-error';
 
 describe('command-runner', () => {
@@ -57,12 +58,13 @@ describe('command-runner', () => {
       chai.expect(output.content).to.include(emulatorErrorType.COMMAND_NOT_FOUND);
     });
 
-    it('should run a notFoundCallback command if command not in mapping and notFoundCallback provided', () => {
+    it('should print a custom error if command not in mapping and message provided', () => {
       const commandMapping = createCommandMapping({});
-      const notFoundCallback = ()=> true;
 
-      chai.expect(run(commandMapping, 'noSuchKey', [], notFoundCallback)).to.equal(true);
+      chai.expect(run(commandMapping, 'noSuchKey', [], "an error message")).to.deep.equal({
+          output: makeRunnerErrorOutput("an error message")
+        }
+      );
     });
-
   });
 });

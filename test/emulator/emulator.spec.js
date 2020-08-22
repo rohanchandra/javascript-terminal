@@ -7,7 +7,8 @@ import EmulatorState from 'emulator-state/EmulatorState';
 import { create as createOutputs } from 'emulator-state/outputs';
 import { create as createCommandMapping } from 'emulator-state/command-mapping';
 import { create as createFileSystem } from 'emulator-state/file-system';
-import { makeHeaderOutput, makeTextOutput } from 'emulator-output/output-factory';
+import { makeHeaderOutput, makeTextOutput, makeErrorOutput } from 'emulator-output/output-factory';
+import { makeError } from 'emulator/emulator-error';
 
 const emptyState = EmulatorState.createEmpty();
 
@@ -112,6 +113,18 @@ describe('emulator', () => {
           makeTextOutput('b2'),
           makeTextOutput('c3'),
           makeTextOutput('d/e/f')
+        ]
+      );
+    });
+
+    it('should print a custom error message if passed one', () => {
+      const errorMessage = "a custom error";
+      const newState = emulator.execute(testCommandState, '1234', [], errorMessage);
+
+      chai.expect([...newState.getOutputs()]).to.deep.equal(
+        [
+          makeHeaderOutput('/', '1234'),
+          makeErrorOutput(makeError(errorMessage))
         ]
       );
     });
