@@ -8,7 +8,7 @@ import * as CommandMappingUtil from 'emulator-state/command-mapping';
  * @param  {string} errorType type of emulator error
  * @return {object}           error output object
  */
-const makeRunnerErrorOutput = (errorType) => {
+export const makeRunnerErrorOutput = (errorType) => {
   return makeErrorOutput(makeError(errorType));
 };
 
