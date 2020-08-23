@@ -1,3 +1,6 @@
+## 1.1.1
+* Add ability to add custom error message on missing command
+
 ## 1.0.3
 * Update dependencies, including migration to Babel 7
 
