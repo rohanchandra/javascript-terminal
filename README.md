@@ -35,7 +35,7 @@ const emulator = new Terminal.Emulator();
 const emulatorState = Terminal.EmulatorState.createEmpty();
 ```
 
-In all examples below, it is assumed that `emulator` and `emulatorState` have been created.
+In all examples below it is assumed that `emulator` and `emulatorState` have been created.
 
 ### Running commands
 Once you've created the `emulator` and `emulatorState`, you can run commands! `emulator.execute` is used to run a command string from the user, and it returns the **new** emulator state.
@@ -55,7 +55,7 @@ You can then see the updated outputs using:
 newEmulatorState.getOutputs()
 ```
 
-Putting everything together, you now have enough knowledge to build a simple terminal emulator in Node.js! Check out the [demo code](https://github.com/rohanchandra/javascript-terminal/tree/master/demo-cli), or keep reading for more advanced features.
+Putting everything together you now have enough knowledge to build a simple terminal emulator in Node.js! Check out the [demo code](https://github.com/rohanchandra/javascript-terminal/tree/master/demo-cli), or keep reading for more advanced features.
 
 ### Autocomplete
 
@@ -98,7 +98,7 @@ When the user presses the up key call `completeUp()`.
 historyKeyboardPlugin.completeUp() // returns string from history stack
 ```
 
-When the user presses the down key call `completeDown()` .
+When the user presses the down key call `completeDown()`.
 
 ```javascript
 historyKeyboardPlugin.completeDown() // returns string from history stack
@@ -139,7 +139,7 @@ Notice how setting the new outputs with `setOutputs` returns **new** `emulatorSt
 
 ### Customising the emulator state
 
-To create emulator state with customised elements (e.g. a custom file system), use a JavaScript object with `create()` which conforms to the following object schema.
+To create emulator state with customised elements (e.g. a custom file system), use a JavaScript object with `create()` which conforms to the following object schema:
 
 ```javascript
 const emulatorState = Terminal.EmulatorState.create({
@@ -151,7 +151,7 @@ const emulatorState = Terminal.EmulatorState.create({
 })
 ```
 
-The JavaScript object only needs to have the keys of the element you wish to adjust. Default elements will be used as a fallback. For example, if you only need a custom file system your code would look this this:
+The JavaScript object only needs to have the keys of the element you wish to adjust. Default elements will be used as a fallback. For example, if you only need a custom file system your code would look like this:
 
 ```javascript
 const emulatorState = Terminal.EmulatorState.create({
@@ -185,7 +185,7 @@ The created file system (in `customFileSystem`) can be read or modified using a 
 
 The command mapping can be used to add a new command to the terminal.
 
-Here us an example of adding a command to print the contents of the arguments:
+Here is an example of adding a command to print the contents of the arguments:
 
 ```javascript
 const customCommandMapping = Terminal.CommandMapping.create({
@@ -229,7 +229,7 @@ const customOutputs = Terminal.Outputs.create([textOutput]);
 
 ##### Environment variables
 
-Environment variables can be accessed by a command or the user (for example, by using the `echo` command).
+Environment variables can be accessed inside a command's code or by the user (for example, by executing the `echo` command).
 
 ```javascript
 const defaultEnvVariables = Terminal.EnvironmentVariables.create();
@@ -269,7 +269,7 @@ yarn install
 * `yarn test` - run tests
 * `yarn test:min` - run tests with summary reports
 * `yarn test:coverage` - shows test coverage stats
-* `yarn artifact:coverage-report` - creates [HTML test coverage report](https://rohanchandra.gitlab.io/javascript-terminal/coverage/)  in `.nyc_output`
+* `yarn artifact:coverage-report` - creates [HTML test coverage report](https://rohanchandra.gitlab.io/javascript-terminal/coverage/) in `.nyc_output`
 
 #### Demo scripts
 * `yarn cli` - demo of using the emulator library in a Node.js command-line interface (this requires you have built the library with `yarn build`)
