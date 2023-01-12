@@ -107,7 +107,7 @@ export default class Emulator {
 
       const {state: nextState, output, outputs} = CommandRunner.run(
         commandMapping, commandName, commandArgs, errorStr
-      );
+      ) || {};
 
       if (nextState) {
         state = nextState;
